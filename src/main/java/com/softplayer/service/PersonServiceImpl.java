@@ -15,13 +15,13 @@ public class PersonServiceImpl implements PersonService{
 	private PersonRepository personRepository;
 
 	@Override
-	public Person insert(Person pessoa) throws Exception {
-		Person p = findByID(pessoa.getCPF());
+	public Person insert(Person person) throws Exception {
+		Person p = findByID(person.getCPF());
 		if(p != null) {
 			throw new Exception("Pessoa já cadastrada.");
 		}
 		
-		return personRepository.save(pessoa);
+		return personRepository.save(person);
 		
 	}
 
