@@ -1,24 +1,18 @@
 package com.softplayer.domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import io.swagger.annotations.ApiModelProperty;
-
 @Entity
-public class Pessoa {
+public class Person {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiModelProperty(notes = "The database generated pessoa ID")
-    private Long id;
+	private String CPF;
 	private String nome;
 	private String sexo;
 	private String email;
 	private String naturalidade;
 	private String nacionalidade;
-	private String CPF;
+
 	public String getNome() {
 		return nome;
 	}
