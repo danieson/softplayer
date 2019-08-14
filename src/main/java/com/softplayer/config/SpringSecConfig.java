@@ -14,5 +14,27 @@ public class SpringSecConfig extends WebSecurityConfigurerAdapter {
         httpSecurity.headers().frameOptions().disable();
     }
 
-
+	//AUTENTICAÇÃO BÁSICA
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//      http
+//          .authorizeRequests()
+//              // Para qualquer requisição (anyRequest) é preciso estar 
+//              // autenticado (authenticated).
+//              .anyRequest().authenticated()
+//          .and()
+//          .httpBasic();
+//    }
+//
+//    
+//    @Override
+//    public void configure(AuthenticationManagerBuilder builder) throws Exception {
+//      builder
+//          .inMemoryAuthentication()
+//          .withUser("garrincha").password("123")
+//              .roles("USER")
+//          .and()
+//          .withUser("zico").password("123")
+//              .roles("USER");
+//    }
 }
