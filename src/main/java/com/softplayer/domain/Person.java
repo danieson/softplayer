@@ -16,6 +16,10 @@ public class Person {
 	private String email;
 	private String naturalidade;
 	private String nacionalidade;
+    @NotNull(message = "Data Nascimento não pode ser nulo")
+	@NotEmpty(message = "Data Nascimento não pode ser nulo")
+	private String dataNascimento;
+	
 	public String getCpf() {
 		return cpf;
 	}
@@ -52,5 +56,10 @@ public class Person {
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
 	}
-
+	public String getDataNascimento() {
+		return dataNascimento;
+	}
+	public void setDataNascimento(String dataNascimento) {
+		this.dataNascimento = dataNascimento;
+	}
 }

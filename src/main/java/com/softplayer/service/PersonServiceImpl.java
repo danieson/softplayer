@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.softplayer.domain.Person;
 import com.softplayer.repositories.PersonRepository;
+import com.softplayer.validate.Validate;
 
 @Service
 public class PersonServiceImpl implements PersonService{
@@ -15,8 +16,9 @@ public class PersonServiceImpl implements PersonService{
 	private PersonRepository personRepository;
 
 	@Override
-	public Person insert(Person person) throws Exception {
+	public Person save(Person person) throws Exception {
 		Person p = findByID(person.getCpf());
+		validate(person);
 		if(p != null) {
 			throw new Exception("Pessoa já cadastrada.");
 		}
@@ -43,6 +45,24 @@ public class PersonServiceImpl implements PersonService{
 		}
 		personRepository.deleteById(cpf);
 		
+	}
+	
+	private void validate(Person person) throws Exception {
+		if(person.getNome() == null || person.getNome().isEmpty()) {
+			throw new Exception("Campo nome Obrigatório");
+		}
+		if(person.getEmail() == null || person.getEmail().isEmpty()) {
+			Validate.email(person.getEmail());
+		}
+		if(person.getDataNascimento() == null || person.getDataNascimento().isEmpty()) {
+			throw new Exception("Campo nome Data nascimento");
+		}
+		
+		if(person.getCpf() == null || person.getCpf() .isEmpty()) {
+			throw new Exception("Campo nome Obrigatório");
+		}else {
+			Validate.cpf(person.getCpf());
+		}
 	}
 
 }

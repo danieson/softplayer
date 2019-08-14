@@ -38,6 +38,7 @@
 					<tr>
 						<th class="text-center col-md-2">CPF</th>
 						<th class="text-center col-md-2">Nome</th>
+						<th class="text-center col-md-2">Data Nascimento</th>
 						<th class="text-center col-md-2">Sexo</th>
 						<th class="text-center col-md-2">Email</th>
 						<th class="text-center col-md-2">Naturalidade</th>
@@ -49,6 +50,7 @@
 					<tr th:each="person : ${persons}">
 						<td class="text-center" th:text="${person.cpf}"></td>
 						<td class="text-center" th:text="${person.nome}"></td>
+						<td class="text-center" th:text="${person.dataNascimento}"></td>
 						<td class="text-center" th:text="${person.sexo}"></td>
 						<td class="text-center" th:text="${person.email}"></td>
 						<td class="text-center" th:text="${person.naturalidade}"></td>

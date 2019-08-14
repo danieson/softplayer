@@ -31,7 +31,7 @@ public class PersonController {
         	return mv;
         }
         
-        personService.insert(person);
+        personService.save(person);
         mv.addObject("mensagem", "Pessoa salva com sucesso!!!");
         return mv;
     }

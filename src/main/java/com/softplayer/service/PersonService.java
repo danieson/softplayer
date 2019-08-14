@@ -6,7 +6,7 @@ import com.softplayer.domain.Person;
 
 public interface PersonService {
 	
-	Person insert(Person pessoa) throws Exception;
+	Person save(Person pessoa) throws Exception;
 	
 	Person findByID(String cpf);
 	

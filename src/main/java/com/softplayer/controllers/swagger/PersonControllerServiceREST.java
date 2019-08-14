@@ -35,26 +35,26 @@ public class PersonControllerServiceREST {
     )
     @RequestMapping(value = "/list", method= RequestMethod.GET, produces = "application/json")
     public Iterable<Person> list(Model model){
-        Iterable<Person> productList = personService.findAll();
-        return productList;
+        Iterable<Person> PersonList = personService.findAll();
+        return PersonList;
     }
     @ApiOperation(value = "Search a person with an ID",response = Person.class)
     @RequestMapping(value = "/show/{cpf}", method= RequestMethod.GET, produces = "application/json")
-    public Person showProduct(@PathVariable String cpf, Model model){
-    	Person product = personService.findByID(cpf);
-        return product;
+    public Person showPerson(@PathVariable String cpf, Model model){
+    	Person Person = personService.findByID(cpf);
+        return Person;
     }
 
     @ApiOperation(value = "Add a person")
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json")
-    public ResponseEntity saveProduct(@RequestBody Person person) throws Exception{
-        personService.insert(person);
+    public ResponseEntity savePerson(@RequestBody Person person) throws Exception{
+        personService.save(person);
         return new ResponseEntity("Person saved successfully", HttpStatus.OK);
     }
 
     @ApiOperation(value = "Update a person")
     @RequestMapping(value = "/update/{cpf}", method = RequestMethod.PUT, produces = "application/json")
-    public ResponseEntity updateProduct(@PathVariable String cpf, @RequestBody Person person){
+    public ResponseEntity updatePerson(@PathVariable String cpf, @RequestBody Person person){
     	Person storedperson = personService.findByID(cpf);
     	storedperson.setNome(person.getNome());
     	storedperson.setSexo(person.getSexo());
@@ -62,7 +62,7 @@ public class PersonControllerServiceREST {
     	storedperson.setNacionalidade(person.getNacionalidade());
     	storedperson.setNaturalidade(person.getNaturalidade());
 
-        return new ResponseEntity("Product updated successfully", HttpStatus.OK);
+        return new ResponseEntity("Person updated successfully", HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete a Person")
