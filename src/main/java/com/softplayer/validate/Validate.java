@@ -1,5 +1,8 @@
 package com.softplayer.validate;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,6 +53,87 @@ public class Validate {
 		
 		return true;
 	}
+	public static boolean validateDate(Object object, boolean obrigatorio,
+			boolean dataEHora) throws Exception {
+
+		// Verifica se o objeto passado é string ou java.util.Date
+		// Preenche a string a ser usada na validação
+		String dataString = null;
+		if (object instanceof String) {
+			dataString = object.toString();
+		} else if (object instanceof Date) {
+			SimpleDateFormat out = null;
+			if (dataEHora) {
+				out = new SimpleDateFormat("ddMMyyyyHHmmss");
+				dataString = out.format(object);
+			} else {
+				out = new SimpleDateFormat("ddMMyyyy");
+				dataString = out.format(object);
+			}
+		}
+
+		// Verifica se é obrigatório e o campo não foi preenchido
+		if (obrigatorio && isEmpty(dataString)) {
+			throw new Exception("Data inválida");
+		} else
+		// Verifica se não for obrigatório e o campo não foi preenchido
+		if (!obrigatorio && isEmpty(dataString)) {
+			return true;
+		}
+
+		// Retira todos os caracteres que não forem numéricos
+		dataString = dataString.replaceAll("[^\\d]", "");
+
+		// Se campo possui hora, deve possuir pelo menos 14 dígitos
+		if (dataEHora && dataString.length() < 14) {
+			throw new Exception("Data inválida");
+		}
+
+		// Se campo não possui hora, deve possuir pelo menos 8 digitos
+		if (!dataEHora && dataString.length() < 8) {
+			throw new Exception("Data inválida");
+		}
+
+		// Pega os valores do dia, mês e ano
+		Long dia = new Long(dataString.substring(0, 2));
+		Long mes = new Long(dataString.substring(2, 4));
+		Long ano = new Long(dataString.substring(4, 8));
+
+		Long hora = null;
+		Long minuto = null;
+		Long segundo = null;
+
+		// Se data tem hora pega os valores de horas, minutos e segundos.
+		if (dataEHora) {
+			hora = new Long(dataString.substring(8, 10));
+			minuto = new Long(dataString.substring(10, 12));
+			segundo = new Long(dataString.substring(12, 14));
+		}
+
+		try {
+			// Preenche um objeto GregorianCalendar onde a validação acontece
+			// Inclusive sobre ano bisexto, dia inválido, hora inválida
+			GregorianCalendar data = new GregorianCalendar();
+			data.setLenient(false);
+			data.set(GregorianCalendar.YEAR, ano.intValue());
+			data.set(GregorianCalendar.MONTH, mes.intValue() - 1);
+			data.set(GregorianCalendar.DATE, dia.intValue());
+
+			if (dataEHora) {
+				data.set(GregorianCalendar.HOUR_OF_DAY, hora.intValue());
+				data.set(GregorianCalendar.MINUTE, minuto.intValue());
+				data.set(GregorianCalendar.SECOND, segundo.intValue());
+			}
+
+			// A validação da data ocorre aqui
+			// Caso tenha alguma coisa errada com a data o sistema lança exceção
+			// Capturada pelo catch abaixo e retorna false
+			data.getTime();
+		} catch (Exception e) {
+			throw new Exception("Data inválida");
+		}
+		return true;
+	}
 
 	private static int calcularDigito(String str, int[] peso) {
 		int soma = 0;
@@ -61,4 +145,9 @@ public class Validate {
 
 		return soma > 9 ? 0 : soma;
 	}
+	
+    private static boolean isEmpty(String s) {
+        return ((s == null) || ("".equals(s.trim())));
+    }
+    
 }

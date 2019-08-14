@@ -51,6 +51,8 @@ public class PersonServiceImpl implements PersonService{
 		}
 		if(person.getDataNascimento() == null || person.getDataNascimento().isEmpty()) {
 			throw new Exception("Campo nome Data nascimento");
+		}else {
+	        Validate.validateDate(person.getDataNascimento(), true, false);
 		}
 		
 		if(person.getCpf() == null || person.getCpf() .isEmpty()) {
