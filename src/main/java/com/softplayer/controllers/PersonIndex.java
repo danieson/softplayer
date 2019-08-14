@@ -9,7 +9,7 @@ public class PersonIndex {
 	
     @RequestMapping()
     String index(){
-        return "PesquisaPessoas";
+        return "redirect:/person/v1/list";
     }
     
     @RequestMapping("cadastro")
