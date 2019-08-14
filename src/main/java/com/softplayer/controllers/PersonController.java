@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softplayer.domain.Person;
 import com.softplayer.service.PersonService;
+import com.softplayer.validate.Validate;
 
 
 @Controller
@@ -26,11 +27,46 @@ public class PersonController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView savePerson(@Validated Person person, Errors errors) throws Exception{
         ModelAndView mv = new ModelAndView("CadastroPessoa");
-//        if(errors.hasErrors()) {
-//        	return mv;
-//        }
-        personService.save(person);
+        if(errors.hasErrors()) {
+        	return mv;
+        }
+        Person storedperson = personService.findByID(person.getCpf());
+        if(storedperson != null) {
+            mv.addObject("erro", "CPF já foi cadastrado.");
+            return mv;
+        }
+        try {
+            validateDataPerson(person);
+            personService.save(person);
+		} catch (Exception e) {
+		     mv.addObject("erro", e.getMessage());
+	         return mv;
+		}
+    
+        
         mv.addObject("mensagem", "Pessoa salva com sucesso!!!");
+        return mv;
+    }
+
+	private void validateDataPerson(Person storedperson) throws Exception {
+		Validate.email(storedperson.getEmail());
+        Validate.cpf(storedperson.getCpf());
+	}
+    
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public ModelAndView saveUpdate(@Validated Person person, Errors errors) throws Exception{
+        ModelAndView mv = new ModelAndView("AtualizarPessoa");
+        if(errors.hasErrors()) {
+        	return mv;
+        }
+        try {
+            validateDataPerson(person);
+            personService.save(person);
+		} catch (Exception e) {
+		     mv.addObject("erro", e.getMessage());
+	         return mv;
+		}
+        mv.addObject("mensagem", "Pessoa atualizada com sucesso!!!");
         return mv;
     }
 	
@@ -52,9 +88,9 @@ public class PersonController {
     
     @RequestMapping(value = "/findById/{cpf}", method = RequestMethod.GET)
     public ModelAndView updatePerson(@PathVariable("cpf") String cpf){
-    	Person storedperson = personService.findByID(cpf);
-    	ModelAndView mv = new ModelAndView("CadastroPessoa");
-        mv.addObject("person",storedperson);
+		Person storedperson = personService.findByID(cpf);
+		ModelAndView mv = new ModelAndView("AtualizarPessoa");
+		mv.addObject("person", storedperson);
         
         return mv;
     }

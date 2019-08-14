@@ -8,16 +8,18 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Person {
     @Id
-//    @NotNull(message = "CPF não pode ser nulo")
-//	@NotEmpty(message = "CPF não pode ser nulo")
+    @NotNull(message = "CPF não pode ser nulo")
+	@NotEmpty(message = "CPF não pode ser nulo")
 	private String cpf;
+    @NotNull(message = "Nome não pode ser nulo")
+	@NotEmpty(message = "Nome não pode ser nulo")
 	private String nome;
 	private String sexo;
 	private String email;
 	private String naturalidade;
 	private String nacionalidade;
-//    @NotNull(message = "Data Nascimento não pode ser nulo")
-//	@NotEmpty(message = "Data Nascimento não pode ser nulo")
+    @NotNull(message = "Data Nascimento não pode ser nulo")
+	@NotEmpty(message = "Data Nascimento não pode ser nulo")
 	private String dataNascimento;
 	
 	public String getCpf() {
