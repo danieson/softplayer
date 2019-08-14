@@ -19,12 +19,7 @@ public class PersonServiceImpl implements PersonService{
 	public Person save(Person person) throws Exception {
 		Person p = findByID(person.getCpf());
 		validate(person);
-		if(p != null) {
-			throw new Exception("Pessoa já cadastrada.");
-		}
-		
 		return personRepository.save(person);
-		
 	}
 
 	@Override
