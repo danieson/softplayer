@@ -1,69 +1,103 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-    xmlns:th="http://www.thymeleaf.org">
-    
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
 <head>
-   <meta charset="UTF-8"/>
-   <title>Pesquisa de títulos</title>    
-   <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
-   <link rel="stylesheet" type="text/css" href="/css/style.css" />
+<meta charset="UTF-8" />
+<title>Pesquisa de títulos</title>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="/css/style.css" />
 </head>
 
 <body>
-   <nav class="navbar navbar-inverse navbar-static-top">
-      <div class="container-fluid">
-         <div class="navbar-header">
-            <a class="navbar-brand" href="#">
-               <img alt="logo" src="/images/logo.PNG" />
-            </a>
-         </div>
-      </div>
-   </nav>
+	<nav class="navbar navbar-inverse navbar-static-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#"> <img alt="logo"
+					src="/images/logo.PNG" />
+				</a>
+			</div>
+		</div>
+	</nav>
 
-   <div class="panel panel-default">
+	<div class="panel panel-default">
 
-      	<div class="panel-heading">
+		<div class="panel-heading">
 			<div class="clearfix">
-	   			<h1 class="panel-title aw-titulo-panel">Pesquisa de títulos</h1>
-	   			<a class="btn btn-link aw-link-panel" href="/cadastro">Cadastro Pessoa</a>
-	   		</div>
-	   	</div>
-      	
-      	<div class="panel-body">
-      		<table class="table table-bordered table-striped">
-      			<thead>
-      				<tr>
-      					<th class="text-center col-md-2">CPF</th>
-      					<th class="text-center col-md-2">Nome</th>
-      					<th class="text-center col-md-2">Sexo</th>
-      					<th class="text-center col-md-2">Email</th>
-      					<th class="text-center col-md-2">Naturalidade</th>
-      				    <th class="text-center col-md-2">Nacionaldade</th>
-      					<th class="col-md-1"></th>
-      				</tr>
-      			</thead>
-      				<tbody>
-	   				<tr th:each="person : ${persons}">
-	   					<td class="text-center" th:text="${person.cpf}"></td>
-	   					<td class="text-center" th:text="${person.nome}"></td>
-	   					<td class="text-center" th:text="${person.sexo}"></td>
-	   					<td class="text-center" th:text="${person.email}"></td>
-	   					<td class="text-center" th:text="${person.naturalidade}"></td>
-	   					<td class="text-center" th:text="${person.nacionalidade}"></td>
-	   					
-	   					<td class="text-center">
-	   						
-	   					</td>
-	   				</tr>
-	   				<tr>
-	   					<td colspan="6" th:if="${#lists.isEmpty(persons)}">Nenhum título foi encontrado</td>
-	   				</tr>
-	   			</tbody>
-      		</table>
-      	</div>
-   </div>
-   <script src="/js/jquery-2.1.4.min.js"></script>
-   <script src="/js/bootstrap.min.js"></script>
+				<h1 class="panel-title aw-titulo-panel">Pesquisa de títulos</h1>
+				<a class="btn btn-link aw-link-panel" href="/cadastro">Cadastro
+					Pessoa</a>
+			</div>
+		</div>
+
+		<div class="panel-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th class="text-center col-md-2">CPF</th>
+						<th class="text-center col-md-2">Nome</th>
+						<th class="text-center col-md-2">Sexo</th>
+						<th class="text-center col-md-2">Email</th>
+						<th class="text-center col-md-2">Naturalidade</th>
+						<th class="text-center col-md-2">Nacionaldade</th>
+						<th class="col-md-1"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="person : ${persons}">
+						<td class="text-center" th:text="${person.cpf}"></td>
+						<td class="text-center" th:text="${person.nome}"></td>
+						<td class="text-center" th:text="${person.sexo}"></td>
+						<td class="text-center" th:text="${person.email}"></td>
+						<td class="text-center" th:text="${person.naturalidade}"></td>
+						<td class="text-center" th:text="${person.nacionalidade}"></td>
+
+						<td class="text-center"><a class="btn btn-link btn-xs"
+							th:href="@{/person/v1/findById/{cpf}(cpf=${person.cpf})}"> <span
+								class="glyphicon glyphicon-pencil"></span>
+						</a> 
+						<a class="btn btn-link btn-xs" data-toggle="modal"
+							data-target="#confirmacaoExclusaoModal"
+							th:attr="data-codigo=${person.cpf}, data-descricao=${person.cpf}">
+								<span class="glyphicon glyphicon-remove"></span>
+						</a></td>
+					</tr>
+					<tr>
+						<td colspan="6" th:if="${#lists.isEmpty(persons)}">Nenhum
+							título foi encontrado</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1"
+			data-keyboard="false" data-backdrop="static">
+			<div class="modal-dialog">
+				<form action="/person/v1/delete" method="POST">
+					<input type="hidden" name="_method" value="POST" />
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<h4 class="modal-title">Você tem certeza?</h4>
+						</div>
+
+						<div class="modal-body">
+							<span>Tem certeza que deseja apagar os dados da pessoa?</span>
+						</div>
+
+						<div class="modal-footer">
+							<button type="button" class="btn btn-link" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn btn-primary">Excluir</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<script src="/js/jquery-2.1.4.min.js"></script>
+	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/person.js"></script>
 </body>
 </html>
 
