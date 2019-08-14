@@ -2,10 +2,14 @@ package com.softplayer.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Person {
     @Id
+    @NotNull(message = "CPF não pode ser nulo")
+	@NotEmpty(message = "CPF não pode ser nulo")
 	private String cpf;
 	private String nome;
 	private String sexo;

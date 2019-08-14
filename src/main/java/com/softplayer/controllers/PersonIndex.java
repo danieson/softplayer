@@ -2,6 +2,9 @@ package com.softplayer.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import com.softplayer.domain.Person;
 
 @Controller
 @RequestMapping("/")
@@ -13,8 +16,10 @@ public class PersonIndex {
     }
     
     @RequestMapping("cadastro")
-    String cadastro(){
-        return "CadastroPessoa";
+    ModelAndView cadastro(){
+    	ModelAndView mv = new ModelAndView("CadastroPessoa");
+    	mv.addObject("person", new Person());
+        return mv;
     }
 
 }
