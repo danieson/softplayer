@@ -51,7 +51,7 @@ public class PersonServiceImpl implements PersonService{
 		if(person.getNome() == null || person.getNome().isEmpty()) {
 			throw new Exception("Campo nome Obrigatório");
 		}
-		if(person.getEmail() == null || person.getEmail().isEmpty()) {
+		if(person.getEmail() != null && !person.getEmail().isEmpty()) {
 			Validate.email(person.getEmail());
 		}
 		if(person.getDataNascimento() == null || person.getDataNascimento().isEmpty()) {
