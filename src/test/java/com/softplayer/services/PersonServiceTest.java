@@ -28,7 +28,7 @@ public class PersonServiceTest {
     	Mockito.doReturn(getPerson()).when(personServiceImpl).findByID(getPerson().getCpf());
     	
     	try {
-			Person p = personServiceImpl.insert(getPerson());
+			Person p = personServiceImpl.save(getPerson());
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Pessoa já cadastrada.");
 		}
