@@ -2,6 +2,8 @@ package com.softplayer.controller;
 
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,15 +43,45 @@ public class PersonControllerServiceRESTTeste {
 	
 	
 	@Test
-	public void validateBinCardController() throws Exception {
+	public void add() throws Exception {
 
-		when(serviceController.save(Matchers.anyObject())).thenReturn(new Person());
 
 		mockMvc.perform(MockMvcRequestBuilders.post("/person/v2/add").content(asJsonString(new Person()))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 	
+	@Test
+	public void list() throws Exception {
+
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/person/v2/list").content(asJsonString(new Person()))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+	@Test
+	public void delete() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.delete("/person/v2/delete/123").content(asJsonString(new Person()))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+	
+//	@Test
+//	public void update() throws Exception {
+//		mockMvc.perform(MockMvcRequestBuilders.put("/person/v2/update/456").content(asJsonString(new Person()))
+//				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+//				.andExpect(MockMvcResultMatchers.status().isOk());
+//	}
+	
+	@Test
+	public void findByID() throws Exception {
+
+		mockMvc.perform(MockMvcRequestBuilders.get("/person/v2/show/456").content(asJsonString(new Person()))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
 	private String asJsonString(final Object obj) throws JsonProcessingException {
 		return new ObjectMapper().writeValueAsString(obj);
 	}
