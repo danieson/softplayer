@@ -26,11 +26,9 @@ public class PersonController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ModelAndView savePerson(@Validated Person person, Errors errors) throws Exception{
         ModelAndView mv = new ModelAndView("CadastroPessoa");
-        
-        if(errors.hasErrors()) {
-        	return mv;
-        }
-        
+//        if(errors.hasErrors()) {
+//        	return mv;
+//        }
         personService.save(person);
         mv.addObject("mensagem", "Pessoa salva com sucesso!!!");
         return mv;
