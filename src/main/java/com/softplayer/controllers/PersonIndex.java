@@ -11,5 +11,10 @@ public class PersonIndex {
     String index(){
         return "PesquisaPessoas";
     }
+    
+    @RequestMapping("cadastro")
+    String cadastro(){
+        return "CadastroPessoa";
+    }
 
 }
