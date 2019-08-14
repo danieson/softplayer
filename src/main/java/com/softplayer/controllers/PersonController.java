@@ -44,8 +44,8 @@ public class PersonController {
         return mv;
     }    
     
-	@RequestMapping(value="/delete/{cpf}", method = RequestMethod.DELETE)
-	public String excluir(@PathVariable String cpf, RedirectAttributes attributes) throws Exception {
+	@RequestMapping(value="/delete/{cpf}", method = RequestMethod.GET)
+	public String excluir(@PathVariable("cpf") String cpf, RedirectAttributes attributes) throws Exception {
         personService.delete(cpf);
 		
 		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");

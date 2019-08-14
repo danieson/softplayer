@@ -54,15 +54,18 @@
 						<td class="text-center" th:text="${person.naturalidade}"></td>
 						<td class="text-center" th:text="${person.nacionalidade}"></td>
 
-						<td class="text-center"><a class="btn btn-link btn-xs"
-							th:href="@{/person/v1/findById/{cpf}(cpf=${person.cpf})}"> <span
-								class="glyphicon glyphicon-pencil"></span>
-						</a> 
-						<a class="btn btn-link btn-xs" data-toggle="modal"
-							data-target="#confirmacaoExclusaoModal"
-							th:attr="data-codigo=${person.cpf}, data-descricao=${person.cpf}">
-								<span class="glyphicon glyphicon-remove"></span>
-						</a></td>
+						<td class="text-center">
+						
+							<a class="btn btn-link btn-xs"
+								th:href="@{/person/v1/findById/{cpf}(cpf=${person.cpf})}"> <span
+									class="glyphicon glyphicon-pencil"></span>
+							</a> 
+							<a class="btn btn-link btn-xs" data-toggle="modal"
+								data-target="#confirmacaoExclusaoModal"
+								th:attr="data-codigo=${person.cpf}, data-descricao=${person.cpf}">
+									<span class="glyphicon glyphicon-remove"></span>
+							</a>
+						</td>
 					</tr>
 					<tr>
 						<td colspan="6" th:if="${#lists.isEmpty(persons)}">Nenhum
@@ -74,8 +77,8 @@
 		<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1"
 			data-keyboard="false" data-backdrop="static">
 			<div class="modal-dialog">
-				<form action="/person/v1/delete" method="POST">
-					<input type="hidden" name="_method" value="POST" />
+				<form action="/person/v1/delete" method="GET">
+<!-- 					<input type="hidden" name="_method" value="GET" /> -->
 
 					<div class="modal-content">
 						<div class="modal-header">
