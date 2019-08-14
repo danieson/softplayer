@@ -79,7 +79,7 @@
 		<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1"
 			data-keyboard="false" data-backdrop="static">
 			<div class="modal-dialog">
-				<form action="/person/v1/delete" method="GET">
+				<form th:attr="data-url-base='/person/v1/delete'" method="GET">
 <!-- 					<input type="hidden" name="_method" value="GET" /> -->
 
 					<div class="modal-content">
