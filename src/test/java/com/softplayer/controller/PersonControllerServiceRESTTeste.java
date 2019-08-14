@@ -68,12 +68,14 @@ public class PersonControllerServiceRESTTeste {
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 	
-//	@Test
-//	public void update() throws Exception {
-//		mockMvc.perform(MockMvcRequestBuilders.put("/person/v2/update/456").content(asJsonString(new Person()))
-//				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-//				.andExpect(MockMvcResultMatchers.status().isOk());
-//	}
+	@Test
+	public void update() throws Exception {
+		when(serviceController.findByID(Matchers.anyString())).thenReturn(getPerson());
+		
+		mockMvc.perform(MockMvcRequestBuilders.put("/person/v2/update/456").content(asJsonString(getPerson()))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
 	
 	@Test
 	public void findByID() throws Exception {
@@ -85,4 +87,18 @@ public class PersonControllerServiceRESTTeste {
 	private String asJsonString(final Object obj) throws JsonProcessingException {
 		return new ObjectMapper().writeValueAsString(obj);
 	}
+	
+	
+	 private Person getPerson() {
+			Person person = new Person();
+			person.setCpf("05907233087");
+			person.setEmail("teste@gmail.com");
+			person.setDataNascimento("21/05/1989");
+			person.setNacionalidade("Brasileiro");
+			person.setNaturalidade("Brasiliense");
+			person.setNome("teste");
+			person.setSexo("M");
+			
+			return person;
+	    }
 }
