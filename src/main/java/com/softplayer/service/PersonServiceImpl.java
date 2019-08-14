@@ -16,7 +16,7 @@ public class PersonServiceImpl implements PersonService{
 
 	@Override
 	public Person insert(Person person) throws Exception {
-		Person p = findByID(person.getCPF());
+		Person p = findByID(person.getCpf());
 		if(p != null) {
 			throw new Exception("Pessoa já cadastrada.");
 		}

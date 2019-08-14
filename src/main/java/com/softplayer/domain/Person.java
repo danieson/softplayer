@@ -6,13 +6,18 @@ import javax.persistence.Id;
 @Entity
 public class Person {
     @Id
-	private String CPF;
+	private String cpf;
 	private String nome;
 	private String sexo;
 	private String email;
 	private String naturalidade;
 	private String nacionalidade;
-
+	public String getCpf() {
+		return cpf;
+	}
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
 	public String getNome() {
 		return nome;
 	}
@@ -42,12 +47,6 @@ public class Person {
 	}
 	public void setNacionalidade(String nacionalidade) {
 		this.nacionalidade = nacionalidade;
-	}
-	public String getCPF() {
-		return CPF;
-	}
-	public void setCPF(String cPF) {
-		CPF = cPF;
 	}
 
 }

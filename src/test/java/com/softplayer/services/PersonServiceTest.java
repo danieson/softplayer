@@ -25,7 +25,7 @@ public class PersonServiceTest {
     
     @Test
     public void testInsertWithErro() {
-    	Mockito.doReturn(getPerson()).when(personServiceImpl).findByID(getPerson().getCPF());
+    	Mockito.doReturn(getPerson()).when(personServiceImpl).findByID(getPerson().getCpf());
     	
     	try {
 			Person p = personServiceImpl.insert(getPerson());
@@ -36,10 +36,10 @@ public class PersonServiceTest {
     
     @Test
     public void testDelete() {
-    	Mockito.doReturn(null).when(personServiceImpl).findByID(getPerson().getCPF());
+    	Mockito.doReturn(null).when(personServiceImpl).findByID(getPerson().getCpf());
     	
     	try {
-			personServiceImpl.delete(getPerson().getCPF());
+			personServiceImpl.delete(getPerson().getCpf());
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Nenhum cadastrado encontrado para a pessoa.");
 		}
@@ -49,7 +49,7 @@ public class PersonServiceTest {
     
     private Person getPerson() {
 		Person person = new Person();
-		person.setCPF("85259602331");
+		person.setCpf("85259602331");
 		person.setEmail("teste@gmail.com");
 		person.setNacionalidade("Brasileiro");
 		person.setNaturalidade("Brasiliense");

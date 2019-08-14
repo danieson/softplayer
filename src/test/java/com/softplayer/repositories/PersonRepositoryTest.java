@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
-import java.util.Iterator;
 import java.util.List;
 
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class PersonRepositoryTest {
 	@Test
 	public void testCrudRepository() {
 		Person person = new Person();
-		person.setCPF(CPF);
+		person.setCpf(CPF);
 		person.setEmail("teste@gmail.com");
 		person.setNacionalidade("Brasileiro");
 		person.setNaturalidade("Brasiliense");

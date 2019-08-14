@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="UTF-8"/>
-<title>Cadastro de título</title>
+<title>Cadastro de Pessoa</title>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css"/>
 <link rel="stylesheet" type="text/css" href="/css/style.css"/>
 </head>
@@ -18,9 +18,12 @@
     </nav>
     
     <form class="form-horizontal" method="POST" action="/person/v1/add">
+       	<div class="alert alert-success" th:if="${!#strings.isEmpty(mensagem)}">
+    		<span th:text="${mensagem}">Pessoa salvo com sucesso!!!</span>
+    	</div>
     	<div class="panel panel-default">
     		<div class="panel-heading">
-    			<h1 class="panel-title">Novo título</h1>
+    			<h1 class="panel-title">Dados da nova pessoa</h1>
     		</div>
     		
     		<div class="panel-body">
@@ -74,6 +77,5 @@
 
 
 <script src="/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 </body>
 </html>

@@ -9,7 +9,7 @@ public class PersonIndex {
 	
     @RequestMapping()
     String index(){
-        return "CadastroPessoa";
+        return "PesquisaPessoas";
     }
 
 }
