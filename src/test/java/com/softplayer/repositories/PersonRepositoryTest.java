@@ -19,7 +19,7 @@ import com.softplayer.domain.Person;
 @SpringBootTest(classes = {RepositoryConfig.class})
 public class PersonRepositoryTest {
 	
-	private static final String CPF = "47235244607";
+	private static final String CPF = "05907233087";
 	@Autowired
 	private PersonRepository personRepository;
 	
@@ -28,6 +28,7 @@ public class PersonRepositoryTest {
 		Person person = new Person();
 		person.setCpf(CPF);
 		person.setEmail("teste@gmail.com");
+		person.setDataNascimento("21/05/1989");
 		person.setNacionalidade("Brasileiro");
 		person.setNaturalidade("Brasiliense");
 		person.setNome("teste");

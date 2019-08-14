@@ -24,17 +24,6 @@ public class PersonServiceTest {
     private Person person;
     
     @Test
-    public void testInsertWithErro() {
-    	Mockito.doReturn(getPerson()).when(personServiceImpl).findByID(getPerson().getCpf());
-    	
-    	try {
-			Person p = personServiceImpl.save(getPerson());
-		} catch (Exception e) {
-			assertEquals(e.getMessage(), "Pessoa já cadastrada.");
-		}
-    }
-    
-    @Test
     public void testDelete() {
     	Mockito.doReturn(null).when(personServiceImpl).findByID(getPerson().getCpf());
     	
@@ -49,8 +38,9 @@ public class PersonServiceTest {
     
     private Person getPerson() {
 		Person person = new Person();
-		person.setCpf("85259602331");
+		person.setCpf("05907233087");
 		person.setEmail("teste@gmail.com");
+		person.setDataNascimento("21/05/1989");
 		person.setNacionalidade("Brasileiro");
 		person.setNaturalidade("Brasiliense");
 		person.setNome("teste");
