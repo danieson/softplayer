@@ -8,6 +8,8 @@
 <title>Atualizar de Pessoa</title>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/style.css" />
+<link rel="stylesheet" type="text/css"
+	href="/css/bootstrap-datepicker.standalone.min.css" />
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-static-top">
@@ -44,10 +46,10 @@
 				</div>
 			</div>
 			<div class="panel-body">
-			<input type="hidden" th:field="*{cpf}"/>
-			<input type="hidden" th:field="*{dataCadastro}"/>
-			<input type="hidden" th:field="*{dataAtualizacao}"/>
-			
+				<input type="hidden" th:field="*{cpf}" /> <input type="hidden"
+					th:field="*{dataCadastro}" /> <input type="hidden"
+					th:field="*{dataAtualizacao}" />
+
 				<div class="form-group"
 					th:classappend="${#fields.hasErrors('nome')} ? has-error">
 					<label for="nome" class="col-sm-2 control-label">Nome</label>
@@ -62,7 +64,10 @@
 						Nascimento</label>
 					<div class="col-sm-2">
 						<input type="text" class="form-control" id="dataNascimento"
-							th:field="*{dataNascimento}" />
+							th:field="*{dataNascimento}" data-provide="datepicker"
+							data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+							data-date-autoclose="true" data-date-today-highlight="true"
+							data-date-orientation="bottom" />
 					</div>
 				</div>
 				<div class="form-group"
@@ -106,6 +111,9 @@
 			</div>
 		</div>
 	</form>
+	<script src="/js/jquery-2.1.4.min.js"></script>
 	<script src="/js/bootstrap.min.js"></script>
+	<script src="/js/bootstrap-datepicker.min.js"></script>
+	<script src="/js/bootstrap-datepicker.pt-BR.min.js"></script>
 </body>
 </html>
