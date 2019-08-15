@@ -8,6 +8,8 @@ public interface PersonService {
 	
 	Person save(Person pessoa) throws Exception;
 	
+	Person update(Person person) throws Exception;
+	
 	Person findByID(String cpf);
 	
 	List<Person> findAll();

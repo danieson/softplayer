@@ -1,9 +1,15 @@
 package com.softplayer.domain;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Person {
@@ -21,7 +27,25 @@ public class Person {
     @NotNull(message = "Data Nascimento não pode ser nulo")
 	@NotEmpty(message = "Data Nascimento não pode ser nulo")
 	private String dataNascimento;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+    private Date dataCadastro;
+	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@Temporal(TemporalType.DATE)
+    private Date dataAtualizacao;
 	
+	public Date getDataCadastro() {
+		return dataCadastro;
+	}
+	public void setDataCadastro(Date dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+	public Date getDataAtualizacao() {
+		return dataAtualizacao;
+	}
+	public void setDataAtualizacao(Date dataAtualizacao) {
+		this.dataAtualizacao = dataAtualizacao;
+	}
 	public String getCpf() {
 		return cpf;
 	}

@@ -1,5 +1,8 @@
 package com.softplayer.service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,15 +13,15 @@ import com.softplayer.repositories.PersonRepository;
 import com.softplayer.validate.Validate;
 
 @Service
-public class PersonServiceImpl implements PersonService{
-	
+public class PersonServiceImpl implements PersonService {
+
 	@Autowired
 	private PersonRepository personRepository;
 
 	@Override
 	public Person save(Person person) throws Exception {
-		Person p = findByID(person.getCpf());
 		validate(person);
+		person.setDataCadastro(new Date());
 		return personRepository.save(person);
 	}
 
@@ -35,31 +38,37 @@ public class PersonServiceImpl implements PersonService{
 	@Override
 	public void delete(String cpf) throws Exception {
 		Person p = findByID(cpf);
-		if(p == null) {
+		if (p == null) {
 			throw new Exception("Nenhum cadastrado encontrado para a pessoa.");
 		}
 		personRepository.deleteById(cpf);
-		
 	}
-	
+
 	private void validate(Person person) throws Exception {
-		if(person.getNome() == null || person.getNome().isEmpty()) {
+		if (person.getNome() == null || person.getNome().isEmpty()) {
 			throw new Exception("Campo nome Obrigatório");
 		}
-		if(person.getEmail() != null && !person.getEmail().isEmpty()) {
+		if (person.getEmail() != null && !person.getEmail().isEmpty()) {
 			Validate.email(person.getEmail());
 		}
-		if(person.getDataNascimento() == null || person.getDataNascimento().isEmpty()) {
+		if (person.getDataNascimento() == null || person.getDataNascimento().isEmpty()) {
 			throw new Exception("Campo nome Data nascimento");
-		}else {
-	        Validate.validateDate(person.getDataNascimento(), true, false);
+		} else {
+			Validate.validateDate(person.getDataNascimento(), true, false);
 		}
-		
-		if(person.getCpf() == null || person.getCpf() .isEmpty()) {
+
+		if (person.getCpf() == null || person.getCpf().isEmpty()) {
 			throw new Exception("Campo nome Obrigatório");
-		}else {
+		} else {
 			Validate.cpf(person.getCpf());
 		}
 	}
 
+	@Override
+	public Person update(Person person) throws Exception {
+		validate(person);
+		person.setDataAtualizacao(new Date());
+		return personRepository.save(person);
+
+	}
 }

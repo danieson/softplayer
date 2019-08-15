@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,13 +34,13 @@ public class PersonControllerServiceREST {
     }
     )
     @RequestMapping(value = "/list", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Iterable<Person> list(Model model){
+    public Iterable<Person> list(){
         Iterable<Person> PersonList = personService.findAll();
         return PersonList;
     }
     @ApiOperation(value = "Search a person with an ID",response = Person.class)
     @RequestMapping(value = "/show/{cpf}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person showPerson(@PathVariable String cpf, Model model){
+    public Person showPerson(@PathVariable String cpf){
     	Person Person = personService.findByID(cpf);
         return Person;
     }
@@ -55,7 +54,7 @@ public class PersonControllerServiceREST {
 
     @ApiOperation(value = "Update a person")
     @RequestMapping(value = "/update/{cpf}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updatePerson(@PathVariable String cpf, @RequestBody Person person){
+    public ResponseEntity updatePerson(@PathVariable String cpf, @RequestBody Person person) throws Exception{
     	Person storedperson = personService.findByID(cpf);
     	storedperson.setNome(person.getNome());
     	storedperson.setSexo(person.getSexo());
@@ -63,13 +62,15 @@ public class PersonControllerServiceREST {
     	storedperson.setNacionalidade(person.getNacionalidade());
     	storedperson.setNaturalidade(person.getNaturalidade());
 
+        personService.update(storedperson);
+
         return new ResponseEntity("Person updated successfully", HttpStatus.OK);
     }
 
     @ApiOperation(value = "Delete a Person")
     @RequestMapping(value="/delete/{cpf}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity delete(@PathVariable String cpf) throws Exception{
-        personService.delete(cpf);;
+        personService.delete(cpf);
         return new ResponseEntity("Person deleted successfully", HttpStatus.OK);
 
     }

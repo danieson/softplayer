@@ -49,7 +49,9 @@ public class PersonController {
     }
 
 	private void validateDataPerson(Person storedperson) throws Exception {
-		Validate.email(storedperson.getEmail());
+		if(storedperson.getEmail() != null && !storedperson.getEmail().isEmpty()) {
+			Validate.email(storedperson.getEmail());	
+		}
         Validate.cpf(storedperson.getCpf());
         Validate.validateDate(storedperson.getDataNascimento(), true, false);
 	}
@@ -62,7 +64,7 @@ public class PersonController {
         }
         try {
             validateDataPerson(person);
-            personService.save(person);
+            personService.update(person);
 		} catch (Exception e) {
 		     mv.addObject("erro", e.getMessage());
 	         return mv;
