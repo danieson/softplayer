@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.util.Date;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -45,7 +47,8 @@ public class PersonServiceTest {
 		person.setNaturalidade("Brasiliense");
 		person.setNome("teste");
 		person.setSexo("M");
-		
+		person.setDataAtualizacao(new Date());
+		person.setDataCadastro(new Date());
 		return person;
     }
 }

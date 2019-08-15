@@ -1,14 +1,11 @@
 package com.softplayer.controller;
 
-import static org.mockito.Mockito.when;
-
 import java.util.Date;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
-import org.mockito.Matchers;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.MediaType;
@@ -20,15 +17,14 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.softplayer.controllers.swagger.PersonControllerServiceREST;
+import com.softplayer.controllers.PersonController;
 import com.softplayer.domain.Person;
 import com.softplayer.service.PersonServiceImpl;
 
 @RunWith(SpringRunner.class)
-public class PersonControllerServiceRESTTeste {
-
+public class PersonControllerTest {
 	@InjectMocks
-	private PersonControllerServiceREST controller;
+	private PersonController controller;
 
 	@Mock
 	private PersonServiceImpl serviceController;
@@ -43,37 +39,35 @@ public class PersonControllerServiceRESTTeste {
 
 	@Test
 	public void add() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.post("/person/v2/add").content(asJsonString(new Person()))
+		mockMvc.perform(MockMvcRequestBuilders.post("/person/v1/add").content(asJsonString(new Person()))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
+
+	@Test
+	public void apdate() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.post("/person/v1/update").content(asJsonString(new Person()))
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+				.andExpect(MockMvcResultMatchers.status().isOk());
+	}
+
+//	@Test
+//	public void delete() throws Exception {
+//		mockMvc.perform(MockMvcRequestBuilders.get("/person/v1/delete/123").content(asJsonString(new Person()))
+//				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+//				.andExpect(MockMvcResultMatchers.status().isOk());
+//	}
 
 	@Test
 	public void list() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/person/v2/list").content(asJsonString(new Person()))
+		mockMvc.perform(MockMvcRequestBuilders.get("/person/v1/list").content(asJsonString(""))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
-	public void delete() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.delete("/person/v2/delete/123").content(asJsonString(new Person()))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
-
-	@Test
-	public void update() throws Exception {
-		when(serviceController.findByID(Matchers.anyString())).thenReturn(getPerson());
-
-		mockMvc.perform(MockMvcRequestBuilders.put("/person/v2/update/456").content(asJsonString(getPerson()))
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-				.andExpect(MockMvcResultMatchers.status().isOk());
-	}
-
-	@Test
-	public void findByID() throws Exception {
-		mockMvc.perform(MockMvcRequestBuilders.get("/person/v2/show/456").content(asJsonString(new Person()))
+	public void dinfById() throws Exception {
+		mockMvc.perform(MockMvcRequestBuilders.get("/person/v1/findById/123").content(asJsonString(""))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());
 	}
@@ -82,18 +76,4 @@ public class PersonControllerServiceRESTTeste {
 		return new ObjectMapper().writeValueAsString(obj);
 	}
 
-	private Person getPerson() {
-		Person person = new Person();
-		person.setCpf("05907233087");
-		person.setEmail("teste@gmail.com");
-		person.setDataNascimento("21/05/1989");
-		person.setNacionalidade("Brasileiro");
-		person.setNaturalidade("Brasiliense");
-		person.setNome("teste");
-		person.setSexo("M");
-		person.setDataAtualizacao(new Date());
-		person.setDataCadastro(new Date());
-
-		return person;
-	}
 }

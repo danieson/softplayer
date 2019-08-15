@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -33,6 +34,8 @@ public class PersonRepositoryTest {
 		person.setNaturalidade("Brasiliense");
 		person.setNome("teste");
 		person.setSexo("M");
+		person.setDataAtualizacao(new Date());
+		person.setDataCadastro(new Date());
 		
 		Person personSave = personRepository.save(person);
 		assertNotNull(personSave);
