@@ -53,13 +53,13 @@
 					<tr th:each="person : ${persons}">
 						<td class="text-center" th:text="${person.cpf}"></td>
 						<td class="text-center" th:text="${person.nome}"></td>
-						<td class="text-center" th:text="${person.dataNascimento}"></td>
+						<td class="text-center" th:text="${{person.dataNascimento}}"></td>
 						<td class="text-center" th:text="${person.sexo}"></td>
 						<td class="text-center" th:text="${person.email}"></td>
 						<td class="text-center" th:text="${person.naturalidade}"></td>
 						<td class="text-center" th:text="${person.nacionalidade}"></td>
-						<td class="text-center" th:text="${person.dataCadastro}"></td>
-						<td class="text-center" th:text="${person.dataAtualizacao}"></td>
+						<td class="text-center" th:text="${{person.dataCadastro}}"></td>
+						<td class="text-center" th:text="${{person.dataAtualizacao}}"></td>
 						<td class="text-center">
 						
 							<a class="btn btn-link btn-xs"
