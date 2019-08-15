@@ -45,15 +45,7 @@ public class PersonController {
 		mv.addObject("mensagem", "Pessoa salva com sucesso!!!");
 		return mv;
 	}
-
-	private void validateDataPerson(Person storedperson) throws Exception {
-		if (storedperson.getEmail() != null && !storedperson.getEmail().isEmpty()) {
-			Validate.email(storedperson.getEmail());
-		}
-		Validate.cpf(storedperson.getCpf());
-		Validate.validateDate(storedperson.getDataNascimento(), true, false);
-	}
-
+	
 	@RequestMapping(value = "/update", method = RequestMethod.POST)
 	public ModelAndView saveUpdate(@Validated Person person, Errors errors) throws Exception {
 		ModelAndView mv = new ModelAndView("AtualizarPessoa");
@@ -94,5 +86,27 @@ public class PersonController {
 
 		return mv;
 	}
+	
+	private void validateDataPerson(Person storedperson) throws Exception {
+
+		if (storedperson.getNome() == null || storedperson.getNome().trim().isEmpty()) {
+			throw new Exception("Nome não pode ser nulo");
+		}
+
+		if (storedperson.getCpf() == null || storedperson.getCpf().trim().isEmpty()) {
+			throw new Exception("CPF não pode ser nulo");
+		}
+
+		if (storedperson.getDataNascimento() == null || storedperson.getDataNascimento().trim().isEmpty()) {
+			throw new Exception("Data Nascimento não pode ser nulo");
+		}
+		
+		if (storedperson.getEmail() != null && !storedperson.getEmail().isEmpty()) {
+			Validate.email(storedperson.getEmail());
+		}
+		Validate.cpf(storedperson.getCpf());
+		Validate.validateDate(storedperson.getDataNascimento(), true, false);
+	}
+
 
 }
