@@ -29,7 +29,7 @@ public class PersonController {
 		if (errors.hasErrors()) {
 			return mv;
 		}
-		Person storedperson = personService.findByID(person.getCpf());
+		Person storedperson = personService.findByID(person.getCodigo());
 		if (storedperson != null) {
 			mv.addObject("erro", "CPF já foi cadastrado.");
 			return mv;
@@ -71,16 +71,16 @@ public class PersonController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/delete/{cpf}", method = RequestMethod.GET)
-	public String excluir(@PathVariable("cpf") String cpf, RedirectAttributes attributes) throws Exception {
-		personService.delete(cpf);
+	@RequestMapping(value = "/delete/{codigo}", method = RequestMethod.GET)
+	public String excluir(@PathVariable("codigo") Long codigo, RedirectAttributes attributes) throws Exception {
+		personService.delete(codigo);
 		attributes.addFlashAttribute("mensagem", "Título excluído com sucesso!");
 		return "redirect:/person/v1/list";
 	}
 
-	@RequestMapping(value = "/findById/{cpf}", method = RequestMethod.GET)
-	public ModelAndView updatePerson(@PathVariable("cpf") String cpf) {
-		Person storedperson = personService.findByID(cpf);
+	@RequestMapping(value = "/findById/{codigo}", method = RequestMethod.GET)
+	public ModelAndView updatePerson(@PathVariable("codigo") Long codigo) {
+		Person storedperson = personService.findByID(codigo);
 		ModelAndView mv = new ModelAndView("AtualizarPessoa");
 		mv.addObject("person", storedperson);
 

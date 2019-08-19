@@ -10,10 +10,10 @@ public interface PersonService {
 	
 	Person update(Person person) throws Exception;
 	
-	Person findByID(String cpf);
+	Person findByID(Long codigo);
 	
 	List<Person> findAll();
 	
-	void delete(String cpf) throws Exception;
+	void delete(Long codigo) throws Exception;
 
 }

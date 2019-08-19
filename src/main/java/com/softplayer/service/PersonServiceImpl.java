@@ -24,8 +24,8 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public Person findByID(String cpf) {
-		return personRepository.findById(cpf).orElse(null);
+	public Person findByID(Long codigo) {
+		return personRepository.findById(codigo).orElse(null);
 	}
 
 	@Override
@@ -34,12 +34,12 @@ public class PersonServiceImpl implements PersonService {
 	}
 
 	@Override
-	public void delete(String cpf) throws Exception {
-		Person p = findByID(cpf);
+	public void delete(Long codigo) throws Exception {
+		Person p = findByID(codigo);
 		if (p == null) {
 			throw new Exception("Nenhum cadastrado encontrado para a pessoa.");
 		}
-		personRepository.deleteById(cpf);
+		personRepository.deleteById(codigo);
 	}
 
 	private void validate(Person person) throws Exception {

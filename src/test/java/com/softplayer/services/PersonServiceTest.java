@@ -27,10 +27,10 @@ public class PersonServiceTest {
     
     @Test
     public void testDelete() {
-    	Mockito.doReturn(null).when(personServiceImpl).findByID(getPerson().getCpf());
+    	Mockito.doReturn(null).when(personServiceImpl).findByID(getPerson().getCodigo());
     	
     	try {
-			personServiceImpl.delete(getPerson().getCpf());
+			personServiceImpl.delete(getPerson().getCodigo());
 		} catch (Exception e) {
 			assertEquals(e.getMessage(), "Nenhum cadastrado encontrado para a pessoa.");
 		}
@@ -40,6 +40,7 @@ public class PersonServiceTest {
     
     private Person getPerson() {
 		Person person = new Person();
+		person.setCodigo(1L);
 		person.setCpf("05907233087");
 		person.setEmail("teste@gmail.com");
 		person.setDataNascimento("21/05/1989");

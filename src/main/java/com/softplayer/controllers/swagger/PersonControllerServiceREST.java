@@ -39,9 +39,9 @@ public class PersonControllerServiceREST {
         return PersonList;
     }
     @ApiOperation(value = "Search a person with an ID",response = Person.class)
-    @RequestMapping(value = "/show/{cpf}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person showPerson(@PathVariable String cpf){
-    	Person Person = personService.findByID(cpf);
+    @RequestMapping(value = "/show/{codigo}", method= RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public Person showPerson(@PathVariable Long codigo){
+    	Person Person = personService.findByID(codigo);
         return Person;
     }
 
@@ -53,9 +53,9 @@ public class PersonControllerServiceREST {
     }
 
     @ApiOperation(value = "Update a person")
-    @RequestMapping(value = "/update/{cpf}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity updatePerson(@PathVariable String cpf, @RequestBody Person person) throws Exception{
-    	Person storedperson = personService.findByID(cpf);
+    @RequestMapping(value = "/update/{codigo}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity updatePerson(@PathVariable Long codigo, @RequestBody Person person) throws Exception{
+    	Person storedperson = personService.findByID(codigo);
     	storedperson.setNome(person.getNome());
     	storedperson.setSexo(person.getSexo());
     	storedperson.setEmail(person.getEmail());
@@ -68,9 +68,9 @@ public class PersonControllerServiceREST {
     }
 
     @ApiOperation(value = "Delete a Person")
-    @RequestMapping(value="/delete/{cpf}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity delete(@PathVariable String cpf) throws Exception{
-        personService.delete(cpf);
+    @RequestMapping(value="/delete/{codigo}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity delete(@PathVariable Long codigo) throws Exception{
+        personService.delete(codigo);
         return new ResponseEntity("Person deleted successfully", HttpStatus.OK);
 
     }

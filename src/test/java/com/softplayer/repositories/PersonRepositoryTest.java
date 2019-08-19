@@ -27,6 +27,7 @@ public class PersonRepositoryTest {
 	@Test
 	public void testCrudRepository() {
 		Person person = new Person();
+		person.setCodigo(1L);
 		person.setCpf(CPF);
 		person.setEmail("teste@gmail.com");
 		person.setDataNascimento("21/05/1989");
@@ -40,7 +41,7 @@ public class PersonRepositoryTest {
 		Person personSave = personRepository.save(person);
 		assertNotNull(personSave);
 		
-		Person personFindId = personRepository.findById(CPF).orElse(null);
+		Person personFindId = personRepository.findById(person.getCodigo()).orElse(null);
 		assertNotNull(personFindId);
 		
 		List<Person> personFindAll = personRepository.findAll();
@@ -50,9 +51,9 @@ public class PersonRepositoryTest {
 		}
 		assertEquals(count, 1);
 		
-		personRepository.deleteById(CPF);
+		personRepository.deleteById(person.getCodigo());
 		
-		personFindId = personRepository.findById(CPF).orElse(null);
+		personFindId = personRepository.findById(person.getCodigo()).orElse(null);
 		assertNull(personFindId);
 	}
 

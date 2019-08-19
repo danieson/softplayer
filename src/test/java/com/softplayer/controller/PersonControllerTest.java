@@ -66,7 +66,7 @@ public class PersonControllerTest {
 	}
 
 	@Test
-	public void dinfById() throws Exception {
+	public void listById() throws Exception {
 		mockMvc.perform(MockMvcRequestBuilders.get("/person/v1/findById/123").content(asJsonString(""))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
 				.andExpect(MockMvcResultMatchers.status().isOk());

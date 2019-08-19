@@ -64,7 +64,7 @@ public class PersonControllerServiceRESTTeste {
 
 	@Test
 	public void update() throws Exception {
-		when(serviceController.findByID(Matchers.anyString())).thenReturn(getPerson());
+		when(serviceController.findByID(Matchers.anyLong())).thenReturn(getPerson());
 
 		mockMvc.perform(MockMvcRequestBuilders.put("/person/v2/update/456").content(asJsonString(getPerson()))
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))

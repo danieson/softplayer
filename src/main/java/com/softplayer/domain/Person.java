@@ -3,6 +3,8 @@ package com.softplayer.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -13,7 +15,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 public class Person {
-    @Id
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long codigo;
     @NotNull(message = "CPF não pode ser nulo")
 	@NotEmpty(message = "CPF não pode ser nulo")
 	private String cpf;
@@ -88,4 +92,11 @@ public class Person {
 	public void setDataNascimento(String dataNascimento) {
 		this.dataNascimento = dataNascimento;
 	}
+	public Long getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(Long codigo) {
+		this.codigo = codigo;
+	}
+	
 }

@@ -36,6 +36,7 @@
 			<table class="table table-bordered table-striped">
 				<thead>
 					<tr>
+						<th class="text-center col-md-1">#</th>
 						<th class="text-center col-md-1">CPF</th>
 						<th class="text-center col-md-2">Nome</th>
 						<th class="text-center col-md-1">Data Nascimento</th>
@@ -51,6 +52,8 @@
 				</thead>
 				<tbody>
 					<tr th:each="person : ${persons}">
+					
+						<td class="text-center" th:text="${person.codigo}"></td>
 						<td class="text-center" th:text="${person.cpf}"></td>
 						<td class="text-center" th:text="${person.nome}"></td>
 						<td class="text-center" th:text="${{person.dataNascimento}}"></td>
@@ -63,18 +66,18 @@
 						<td class="text-center">
 						
 							<a class="btn btn-link btn-xs"
-								th:href="@{/person/v1/findById/{cpf}(cpf=${person.cpf})}"> <span
+								th:href="@{/person/v1/findById/{codigo}(codigo=${person.codigo})}"> <span
 									class="glyphicon glyphicon-pencil"></span>
 							</a> 
 							<a class="btn btn-link btn-xs" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
-								th:attr="data-codigo=${person.cpf}, data-descricao=${person.cpf}">
+								th:attr="data-codigo=${person.codigo}, data-descricao=${person.cpf}">
 									<span class="glyphicon glyphicon-remove"></span>
 							</a>
 						</td>
 					</tr>
 					<tr>
-						<td colspan="10" th:if="${#lists.isEmpty(persons)}">Nenhum
+						<td colspan="11" th:if="${#lists.isEmpty(persons)}">Nenhum
 							Nenhuma pessoa foi encontrado</td>
 					</tr>
 				</tbody>
