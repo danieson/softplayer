@@ -31,57 +31,54 @@
 					Pessoa</a>
 			</div>
 		</div>
+		<div class="table-responsive">
+			<div class="panel-body">
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center col-md-1">#</th>
+							<th class="text-center col-md-1">CPF</th>
+							<th class="text-center col-md-2">Nome</th>
+							<th class="text-center col-md-1">Data Nascimento</th>
+							<th class="text-center col-md-1">Sexo</th>
+							<th class="text-center col-md-2">Email</th>
+							<th class="text-center col-md-2">Naturalidade</th>
+							<th class="text-center col-md-2">Nacionaldade</th>
+							<th class="text-center col-md-2">Data Cadastro</th>
+							<th class="text-center col-md-2">Date Atualização</th>
 
-		<div class="panel-body">
-			<table class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th class="text-center col-md-1">#</th>
-						<th class="text-center col-md-1">CPF</th>
-						<th class="text-center col-md-2">Nome</th>
-						<th class="text-center col-md-1">Data Nascimento</th>
-						<th class="text-center col-md-1">Sexo</th>
-						<th class="text-center col-md-2">Email</th>
-						<th class="text-center col-md-2">Naturalidade</th>
-						<th class="text-center col-md-2">Nacionaldade</th>
-						<th class="text-center col-md-2">Data Cadastro</th>
-						<th class="text-center col-md-2">Date Atualização</th>
-						
-						<th class="col-md-1"></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="person : ${persons}">
-					
-						<td class="text-center" th:text="${person.codigo}"></td>
-						<td class="text-center" th:text="${person.cpf}"></td>
-						<td class="text-center" th:text="${person.nome}"></td>
-						<td class="text-center" th:text="${{person.dataNascimento}}"></td>
-						<td class="text-center" th:text="${person.sexo}"></td>
-						<td class="text-center" th:text="${person.email}"></td>
-						<td class="text-center" th:text="${person.naturalidade}"></td>
-						<td class="text-center" th:text="${person.nacionalidade}"></td>
-						<td class="text-center" th:text="${{person.dataCadastro}}"></td>
-						<td class="text-center" th:text="${{person.dataAtualizacao}}"></td>
-						<td class="text-center">
-						
-							<a class="btn btn-link btn-xs"
-								th:href="@{/person/v1/findById/{codigo}(codigo=${person.codigo})}"> <span
-									class="glyphicon glyphicon-pencil"></span>
-							</a> 
-							<a class="btn btn-link btn-xs" data-toggle="modal"
+							<th class="col-md-1"></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="person : ${persons}">
+
+							<td class="text-center" th:text="${person.codigo}"></td>
+							<td class="text-center" th:text="${person.cpf}"></td>
+							<td class="text-center" th:text="${person.nome}"></td>
+							<td class="text-center" th:text="${{person.dataNascimento}}"></td>
+							<td class="text-center" th:text="${person.sexo}"></td>
+							<td class="text-center" th:text="${person.email}"></td>
+							<td class="text-center" th:text="${person.naturalidade}"></td>
+							<td class="text-center" th:text="${person.nacionalidade}"></td>
+							<td class="text-center" th:text="${{person.dataCadastro}}"></td>
+							<td class="text-center" th:text="${{person.dataAtualizacao}}"></td>
+							<td class="text-center"><a class="btn btn-link btn-xs"
+								th:href="@{/person/v1/findById/{codigo}(codigo=${person.codigo})}">
+									<span class="glyphicon glyphicon-pencil"></span>
+							</a> <a class="btn btn-link btn-xs" data-toggle="modal"
 								data-target="#confirmacaoExclusaoModal"
 								th:attr="data-codigo=${person.codigo}, data-descricao=${person.cpf}">
 									<span class="glyphicon glyphicon-remove"></span>
-							</a>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="11" th:if="${#lists.isEmpty(persons)}">Nenhum
-							Nenhuma pessoa foi encontrado</td>
-					</tr>
-				</tbody>
-			</table>
+							</a></td>
+						</tr>
+						<tr>
+							<td colspan="11" th:if="${#lists.isEmpty(persons)}">Nenhum
+								Nenhuma pessoa foi encontrado</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 		<div class="modal fade" id="confirmacaoExclusaoModal" tabindex="-1"
 			data-keyboard="false" data-backdrop="static">
