@@ -20,6 +20,10 @@ public class PersonServiceImpl implements PersonService {
 	public Person save(Person person) throws Exception {
 		validate(person);
 		person.setDataCadastro(new Date());
+		Person personFound = personRepository.findByCpf(person.getCpf());
+		if(personFound != null) {
+			throw new Exception("CPF Já Cadastrado !!!");
+		}
 		return personRepository.save(person);
 	}
 
@@ -69,4 +73,6 @@ public class PersonServiceImpl implements PersonService {
 		return personRepository.save(person);
 
 	}
+	
+	
 }

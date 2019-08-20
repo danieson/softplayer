@@ -14,7 +14,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.softplayer.domain.Person;
 import com.softplayer.service.PersonService;
-import com.softplayer.validate.Validate;
 
 @Controller
 @RequestMapping("/person/v1")
@@ -29,13 +28,7 @@ public class PersonController {
 		if (errors.hasErrors()) {
 			return mv;
 		}
-		Person storedperson = personService.findByID(person.getCodigo());
-		if (storedperson != null) {
-			mv.addObject("erro", "CPF já foi cadastrado.");
-			return mv;
-		}
 		try {
-			validateDataPerson(person);
 			personService.save(person);
 		} catch (Exception e) {
 			mv.addObject("erro", e.getMessage());
@@ -53,7 +46,6 @@ public class PersonController {
 			return mv;
 		}
 		try {
-			validateDataPerson(person);
 			personService.update(person);
 		} catch (Exception e) {
 			mv.addObject("erro", e.getMessage());
@@ -86,27 +78,4 @@ public class PersonController {
 
 		return mv;
 	}
-	
-	private void validateDataPerson(Person storedperson) throws Exception {
-
-		if (storedperson.getNome() == null || storedperson.getNome().trim().isEmpty()) {
-			throw new Exception("Nome não pode ser nulo");
-		}
-
-		if (storedperson.getCpf() == null || storedperson.getCpf().trim().isEmpty()) {
-			throw new Exception("CPF não pode ser nulo");
-		}
-
-		if (storedperson.getDataNascimento() == null || storedperson.getDataNascimento().trim().isEmpty()) {
-			throw new Exception("Data Nascimento não pode ser nulo");
-		}
-		
-		if (storedperson.getEmail() != null && !storedperson.getEmail().isEmpty()) {
-			Validate.email(storedperson.getEmail());
-		}
-		Validate.cpf(storedperson.getCpf());
-		Validate.validateDate(storedperson.getDataNascimento(), true, false);
-	}
-
-
 }
